@@ -8,7 +8,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
-//test
 
 /**
  * die Windwow Klasse bezieht sich auf die Erstellung von der Scene.
@@ -162,7 +161,11 @@ public class Window {
 
             if(  Schuss.mag[Schuss.getKugel()].getBoundsInParent().intersects(enemy.createRectangle().get(enemy.getRandomSpawnLocation()).getBoundsInParent())){
                 root.getChildren().remove(enemy.createRectangle().get(enemy.getRandomSpawnLocation()));
-                e.randomSpawn();
+
+            }
+
+            if(!root.getChildren().contains(enemy.createRectangle().get(enemy.getRandomSpawnLocation()))){
+                enemy.randomSpawn();
             }
 
 
