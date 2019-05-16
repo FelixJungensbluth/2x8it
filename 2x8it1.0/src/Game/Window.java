@@ -25,7 +25,6 @@ public class Window {
     Rectangle pHBox;
     GameObject gObj;
     GrapplingHook hook;
-    Rectangle a = new Rectangle(200,540,40,60);
 
     public boolean canSpawn = true;
 
