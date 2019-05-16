@@ -18,6 +18,7 @@ public class Schuss {
 
     public double px;
     public double py;
+    public int gittst;
     public static double fpx;
     public static double fpy;
     static boolean frei = true;
