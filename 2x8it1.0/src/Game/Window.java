@@ -8,7 +8,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
-
+//test
 
 /**
  * die Windwow Klasse bezieht sich auf die Erstellung von der Scene.
@@ -24,7 +24,7 @@ public class Window {
     Enemy enemy;
     Rectangle pHBox;
     GameObject gObj;
-    MouseInput hook;
+    GrapplingHook hook;
     Rectangle a = new Rectangle(200,540,40,60);
 
     public boolean canSpawn = true;
@@ -40,7 +40,7 @@ public class Window {
 
 
         gObj = new GameObject();
-        hook = new MouseInput();
+        hook = new GrapplingHook();
 
         enemy = new Enemy();
 
@@ -61,7 +61,7 @@ public class Window {
                 level1.getHitBox().get(9),
                 player.getY() >= 0 && hitbox.getY() >= 0
  */
-                playerImage, enemy.createRectangle().get(0));
+                playerImage, enemy.createRectangle().get(enemy.getRandomSpawnLocation()));
 
 
         scene = new Scene(root, 1280, 720);
@@ -93,7 +93,7 @@ public class Window {
             pHBox.setY(500);
             playerImage.setX(0);
             playerImage.setY(500);
-            root.getChildren().remove(MouseInput.getLine());
+            root.getChildren().remove(GrapplingHook.getLine());
 
         }
 
@@ -161,11 +161,9 @@ public class Window {
                 }
             }
 
-            if(  Schuss.mag[Schuss.getKugel()].getBoundsInParent().intersects(enemy.createRectangle().get(0).getBoundsInParent())){
-                root.getChildren().remove(enemy.createRectangle().get(0));
-                //public void spawn enemy
-                // int wird übergeben
-
+            if(  Schuss.mag[Schuss.getKugel()].getBoundsInParent().intersects(enemy.createRectangle().get(enemy.getRandomSpawnLocation()).getBoundsInParent())){
+                root.getChildren().remove(enemy.createRectangle().get(enemy.getRandomSpawnLocation()));
+                e.randomSpawn();
             }
 
 

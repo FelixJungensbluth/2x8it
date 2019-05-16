@@ -7,7 +7,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import org.w3c.dom.css.Rect;
 
 import java.io.FileNotFoundException;
 
@@ -62,7 +61,7 @@ public class GameObject {
                 player.setImage(Player.playerImage);
 
                 if (moveUp || moveLeft && hitbox.getX() <= 1235) {
-                    MouseInput.getLine().setStartX(MouseInput.getLine().getStartX() + movementSpeed);
+                    GrapplingHook.getLine().setStartX(GrapplingHook.getLine().getStartX() + movementSpeed);
                     hitbox.setX(hitbox.getX() + movementSpeed);
                     player.setX(player.getX() + movementSpeed);
 
@@ -80,8 +79,8 @@ public class GameObject {
                 player.setY(player.getY() - jumpHeight);
 
                 if (moveLeft && hitbox.getX() <= 1235) {
-                    MouseInput.getLine().setStartX(MouseInput.getLine().getStartX() + movementSpeed);
-                    MouseInput.getLine().setStartY(MouseInput.getLine().getStartY() - jumpHeight);
+                    GrapplingHook.getLine().setStartX(GrapplingHook.getLine().getStartX() + movementSpeed);
+                    GrapplingHook.getLine().setStartY(GrapplingHook.getLine().getStartY() - jumpHeight);
                     hitbox.setX(hitbox.getX() + movementSpeed);
                     player.setX(player.getX() + movementSpeed);
                 }
@@ -97,7 +96,7 @@ public class GameObject {
                 player.setImage(Player.playerImage2);
 
                 if (moveUp || moveRight && hitbox.getX() >= 5) {
-                    MouseInput.getLine().setStartX(MouseInput.getLine().getStartX() - movementSpeed);
+                    GrapplingHook.getLine().setStartX(GrapplingHook.getLine().getStartX() - movementSpeed);
                     hitbox.setX(hitbox.getX() - movementSpeed);
                     player.setX(player.getX() - movementSpeed);
                 }
@@ -114,8 +113,8 @@ public class GameObject {
                 player.setY(player.getY() - jumpHeight);
 
                 if (moveLeft && hitbox.getX() >= movementSpeed) {
-                    MouseInput.getLine().setStartX(MouseInput.getLine().getStartX() - movementSpeed);
-                    MouseInput.getLine().setStartY(MouseInput.getLine().getStartY() - jumpHeight);
+                    GrapplingHook.getLine().setStartX(GrapplingHook.getLine().getStartX() - movementSpeed);
+                    GrapplingHook.getLine().setStartY(GrapplingHook.getLine().getStartY() - jumpHeight);
 
                     hitbox.setX(hitbox.getX() - movementSpeed);
                     player.setX(player.getX() - movementSpeed);
@@ -130,7 +129,7 @@ public class GameObject {
             if (keycode.equals(KeyCode.SPACE) && canJump) {
                 hitbox.setY(hitbox.getY() - jumpHeight);
                 player.setY(player.getY() - jumpHeight);
-                MouseInput.getLine().setStartY(MouseInput.getLine().getStartY() - jumpHeight);
+                GrapplingHook.getLine().setStartY(GrapplingHook.getLine().getStartY() - jumpHeight);
             }
 
 

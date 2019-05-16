@@ -18,7 +18,6 @@ public class Schuss {
 
     public double px;
     public double py;
-    public int gittst;
     public static double fpx;
     public static double fpy;
     static boolean frei = true;
@@ -35,7 +34,7 @@ public class Schuss {
 
     public static void schiessen(Scene scene, ImageView player){
             scene.setOnMouseClicked((MouseEvent event) -> {
-                if (event.getButton() == SECONDARY) {
+                if (event.getButton() == PRIMARY) {
                     frei = true;
                     kugel++;
                     System.out.println(kugel);

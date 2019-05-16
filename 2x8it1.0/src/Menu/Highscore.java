@@ -21,21 +21,21 @@ public class Highscore extends Parent {
         Pane Highscore = new Pane();
         Highscore.setPrefSize(1280, 720);
 
-        try (InputStream is = Files.newInputStream(Paths.get("res/Background.jpg"))) {
-            ImageView hintergrund = new ImageView(new Image(is));
+        try {
+            ImageView hintergrund = new ImageView(new Image("Images/Background.jpg"));
             hintergrund.setFitWidth(1280);
             hintergrund.setFitHeight(720);
             Highscore.getChildren().add(hintergrund);
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Couldn't load image");
         }
 
-        Boxen.ScoreBox scores = new Boxen.ScoreBox( new Boxen.ScoreItem("Highscore"));
-
+        Boxen.ScoreBox scores = new Boxen.ScoreBox(new Boxen.ScoreItem("Highscore"));
+/*
 
         BufferedReader dateiLesen;
         try {
-            dateiLesen = new BufferedReader(new FileReader("res/Highscore.txt"));
+            dateiLesen = new BufferedReader(new FileReader("/Highscore.txt"));
                 scores =new Boxen.ScoreBox(
                         new Boxen.ScoreItem("Highscore"),
                         new Boxen.ScoreItem("01: "+dateiLesen.readLine()),
@@ -55,7 +55,7 @@ public class Highscore extends Parent {
         }
         scores.setTranslateX(350);
         scores.setTranslateY(100);
-
+*/
         itemZurück = new Boxen.MenuItem("ZURÜCK");
 
         Boxen.MenuItem itemExit = new Boxen.MenuItem("BEENDEN");
@@ -70,6 +70,7 @@ public class Highscore extends Parent {
         Highscore.getChildren().addAll(menu, scores);
         return Highscore;
     }
+
     public void zurück(Stage stage, Scene scene){
         itemZurück.setOnMouseClicked(event -> stage.setScene(scene));
     }

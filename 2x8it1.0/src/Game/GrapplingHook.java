@@ -3,15 +3,15 @@ package Game;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Line;
-import java.util.Random;
 
 /*
 Hier werden die Eigenschaften des Greifhakens festgelegt
 Die angelegte Line dient als Leitfaden für die Flugbahn des Hakens
  */
-public class MouseInput {
+public class GrapplingHook {
 
     public static Line line = new Line();
+
     /*
     Die Line wird zurückgegeben
      */
@@ -30,21 +30,21 @@ public class MouseInput {
           Die Linie wird in die Gruppe der Szene hinzugefügt, damit sie auf dem Bildschirm angezeigt wird.
            */
         scene.setOnMousePressed(event -> {
-                    if (event.isPrimaryButtonDown()) {
-                        Window.root.getChildren().add(getLine());
-                        line.setEndX(event.getX());
-                        line.setEndY(event.getY());
-                        line.setStartX(player.getX() + 20);
-                        line.setStartY(player.getY() + 20);
-                    }
+            if (event.isSecondaryButtonDown()) {
+                Window.root.getChildren().add(getLine());
+                line.setEndX(event.getX());
+                line.setEndY(event.getY());
+                line.setStartX(player.getX() + 20);
+                line.setStartY(player.getY() + 20);
+            }
 
-                });
+        });
 
             /*
             Wenn die Maustaste wieder losgelassen wird, wird die Line aus der Gruppe entfernt
              */
         scene.setOnMouseReleased(event -> {
-                Window.root.getChildren().remove(getLine());
+            Window.root.getChildren().remove(getLine());
         });
     }
 
