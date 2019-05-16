@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.format.TextStyle;
 
 import Game.GameLoop;
 import javafx.application.Application;
@@ -14,6 +15,7 @@ import javafx.scene.*;
 import javafx.scene.layout.*;
 
 public class Hauptmenu extends Application {
+
     static Stage window;
     Scene HauptmenuScene;
     Scene EinzelspielerScene;
@@ -89,7 +91,6 @@ public class Hauptmenu extends Application {
         HighscoreScene = new Scene(highscore.create());
         PauseScene = new Scene(pause.create());
 
-        charakter.auswahl();
         einzelspieler.zurück(primaryStage,getHauptScene());
         mehrspieler.zurück(primaryStage,getHauptScene());
         highscore.zurück(primaryStage,getHauptScene());
