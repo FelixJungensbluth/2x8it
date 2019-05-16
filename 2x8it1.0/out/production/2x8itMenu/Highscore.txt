@@ -1,0 +1,14 @@
+Marc		--100
+Felix		---90
+Steffen		---80
+Julius		---70
+Tobias		---60
+Hans		---50
+Dieter		---40
+Lukas		---30
+Jonas		---20
+Malte		---10
+
+
+16-6
+TAB = 8
