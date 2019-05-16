@@ -1,11 +1,5 @@
 package Menu;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.time.format.TextStyle;
-
 import Game.GameLoop;
 import javafx.application.Application;
 import javafx.scene.image.Image;
@@ -15,7 +9,6 @@ import javafx.scene.*;
 import javafx.scene.layout.*;
 
 public class Hauptmenu extends Application {
-
     static Stage window;
     Scene HauptmenuScene;
     Scene EinzelspielerScene;
@@ -29,12 +22,12 @@ public class Hauptmenu extends Application {
     private Parent create(){
         Pane Hauptmenu = new Pane();
         Hauptmenu.setPrefSize(1280,720);
-        try(InputStream is = Files.newInputStream(Paths.get("res/Background.jpg"))){
-            ImageView hintergrund = new ImageView(new Image(is));
+        try{
+            ImageView hintergrund = new ImageView(new Image("Images/Background.jpg"));
             hintergrund.setFitWidth(1280);
             hintergrund.setFitHeight(720);
             Hauptmenu.getChildren().add(hintergrund);
-        }catch(IOException e){
+        }catch(Exception e){
             System.err.println("Hintergrund konnte nicht geladen werden");
         }
 

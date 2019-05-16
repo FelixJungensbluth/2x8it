@@ -122,67 +122,70 @@ public class Boxen {
         }
     }
 
-        public static class CharakterBox extends HBox {
-            public CharakterBox(Boxen.CharakterItem... items) {
+    public static class CharakterBox extends HBox {
+        public CharakterBox(Boxen.CharakterItem... items) {
 
-                for (Boxen.CharakterItem item : items) {
-                    getChildren().addAll(item);
-                }
+            for (Boxen.CharakterItem item : items) {
+                getChildren().addAll(item);
             }
         }
-        public static class CharakterItem extends StackPane {
-            public CharakterItem(String name) {
-                LinearGradient mausAufVerlauf = new LinearGradient(0, 1, 0, 0, true, CycleMethod.NO_CYCLE,
-                        new Stop(0, Color.TRANSPARENT),
-                        new Stop(0.3, Color.GRAY),
-                        new Stop(0.7, Color.GRAY),
-                        new Stop(1, Color.TRANSPARENT));
+    }
+    public static class CharakterItem extends StackPane {
+        public CharakterItem(String name) {
+            LinearGradient mausAufVerlauf = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE,
+                    new Stop(0, Color.TRANSPARENT),
+                    new Stop(0.3, Color.GRAY),
+                    new Stop(0.7, Color.GRAY),
+                    new Stop(1, Color.TRANSPARENT));
 
-                LinearGradient standartVerlauf = new LinearGradient(0,1,0,0,true,CycleMethod.NO_CYCLE,
-                        new Stop(0, Color.TRANSPARENT),
-                        new Stop(0.3, Color.BLACK),
-                        new Stop(0.7, Color.BLACK),
-                        new Stop(1, Color.TRANSPARENT));
+            LinearGradient standartVerlauf = new LinearGradient(0,0,1,0,true,CycleMethod.NO_CYCLE,
+                    new Stop(0, Color.TRANSPARENT),
+                    new Stop(0.3, Color.BLACK),
+                    new Stop(0.7, Color.BLACK),
+                    new Stop(1, Color.TRANSPARENT));
 
-                LinearGradient mausKlickVerlauf = new LinearGradient(0,1,0,0,true,CycleMethod.NO_CYCLE,
-                        new Stop(0, Color.TRANSPARENT),
-                        new Stop(0.3, Color.WHITE),
-                        new Stop(0.7, Color.WHITE),
-                        new Stop(1, Color.TRANSPARENT));
+            LinearGradient mausKlickVerlauf = new LinearGradient(0,0,1,0,true,CycleMethod.NO_CYCLE,
+                    new Stop(0, Color.TRANSPARENT),
+                    new Stop(0.3, Color.LIGHTGREEN),
+                    new Stop(0.7, Color.LIGHTGREEN),
+                    new Stop(1, Color.TRANSPARENT));
 
-                Rectangle knopf = new Rectangle(250, 250);
+            Rectangle knopf = new Rectangle(250, 30);
+            knopf.setFill(standartVerlauf);
+            knopf.setOpacity(0.3);
+
+            Text text = new Text(name);
+            text.setFill(Color.LIGHTGRAY);
+            text.setFont(Font.font("VCR OSD MONO",25));
+            setAlignment(Pos.CENTER);
+            getChildren().addAll(knopf, text);
+
+            setOnMouseEntered(event -> {
+                knopf.setFill(mausAufVerlauf);
+                knopf.setOpacity(0.5);
+                text.setFill(Color.WHITE);
+            });
+
+            setOnMouseEntered(event -> {
+                knopf.setFill(mausAufVerlauf);
+                knopf.setOpacity(0.5);
+                text.setFill(Color.WHITE);
+            });
+
+
+            setOnMouseExited(event -> {
                 knopf.setFill(standartVerlauf);
                 knopf.setOpacity(0.3);
-
-                Text text = new Text(name);
                 text.setFill(Color.LIGHTGRAY);
-                text.setFont(Font.font("VCR OSD MONO",50));
-                setAlignment(Pos.CENTER);
-                getChildren().addAll(knopf, text);
+            });
 
-                setOnMouseEntered(event -> {
-                    knopf.setFill(mausAufVerlauf);
-                    knopf.setOpacity(0.5);
-                    text.setFill(Color.WHITE);
-                });
+            setOnMousePressed(event -> {
+                knopf.setFill(mausKlickVerlauf);
+            });
 
-                setOnMouseExited(event -> {
-                    knopf.setFill(standartVerlauf);
-                    knopf.setOpacity(0.3);
-                    text.setFill(Color.LIGHTGRAY);
-                });
-
-                setOnMouseClicked(event -> {
-                    knopf.setFill(mausKlickVerlauf);
-                    //Media clickSound =new Media("/res/Sounds/Click.mp3");
-
-
-                });
-
-                setOnMouseReleased(event -> {
-                    knopf.setFill(standartVerlauf);
-                }
-                );
-            }
+            setOnMouseReleased(event -> {
+                knopf.setFill(mausAufVerlauf);
+            });
+        }
     }
 }

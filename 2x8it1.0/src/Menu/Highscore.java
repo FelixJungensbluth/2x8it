@@ -21,12 +21,12 @@ public class Highscore extends Parent {
         Pane Highscore = new Pane();
         Highscore.setPrefSize(1280, 720);
 
-        try (InputStream is = Files.newInputStream(Paths.get("res/Background.jpg"))) {
-            ImageView hintergrund = new ImageView(new Image(is));
+        try{
+            ImageView hintergrund = new ImageView(new Image("Images/Background.jpg"));
             hintergrund.setFitWidth(1280);
             hintergrund.setFitHeight(720);
             Highscore.getChildren().add(hintergrund);
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Couldn't load image");
         }
 

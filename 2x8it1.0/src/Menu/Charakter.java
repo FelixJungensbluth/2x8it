@@ -22,11 +22,9 @@ public class Charakter extends Parent {
     public static Image char1;
     public static Image char2;
     public static Image char3;
-    public static Image indicator;
     public static ImageView char1ImageView;
     public static ImageView char2ImageView;
     public static ImageView char3ImageView;
-    public static ImageView indicatorImageView;
 
 
 
@@ -36,20 +34,18 @@ public class Charakter extends Parent {
         char1ImageView= createChar1Image();
         char2ImageView= createChar2Image();
         char3ImageView= createChar3Image();
-        indicatorImageView= createIndicator();
 
 
-        try (InputStream is = Files.newInputStream(Paths.get("res/Background.jpg"))) {
-            ImageView hintergrund = new ImageView(new Image(is));
+        try{
+            ImageView hintergrund = new ImageView(new Image("Images/Background.jpg"));
             hintergrund.setFitWidth(1280);
             hintergrund.setFitHeight(720);
             Charakter.getChildren().add(hintergrund);
             Charakter.getChildren().add(char1ImageView);
             Charakter.getChildren().add(char2ImageView);
             Charakter.getChildren().add(char3ImageView);
-            Charakter.getChildren().add(indicatorImageView);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Couldn't load image");
         }
 
@@ -81,19 +77,6 @@ public class Charakter extends Parent {
         Charakter.getChildren().addAll(menu, charakter);
         return Charakter;
 
-    }
-
-    public ImageView createIndicator () throws  FileNotFoundException{
-        indicator = new Image("Charakter/icon.jpg");
-        indicatorImageView = new ImageView(indicator);
-
-        indicatorImageView.setFitWidth(50);
-        indicatorImageView.setFitHeight(50);
-        indicatorImageView.setX(590);
-        indicatorImageView.setY(250);
-        indicatorImageView.setVisible(true);
-
-        return indicatorImageView;
     }
 
     public ImageView createChar1Image() throws FileNotFoundException {

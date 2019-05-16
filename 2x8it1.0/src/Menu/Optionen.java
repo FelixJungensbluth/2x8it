@@ -19,13 +19,13 @@ public class Optionen extends Parent {
         Pane Optionen = new Pane();
         Optionen.setPrefSize(1280  , 720);
 
-        try (InputStream is = Files.newInputStream(Paths.get("res/Background.jpg"))) {
-            ImageView img = new ImageView(new Image(is));
-            img.setFitWidth(1280);
-            img.setFitHeight(720);
-            Optionen.getChildren().add(img);
+        try{
+            ImageView hintergrund = new ImageView(new Image("Images/Background.jpg"));
+            hintergrund.setFitWidth(1280);
+            hintergrund.setFitHeight(720);
+            Optionen.getChildren().add(hintergrund);
         }
-        catch (IOException e) {
+        catch (Exception e) {
             System.out.println("Couldn't load image");
         }
 
