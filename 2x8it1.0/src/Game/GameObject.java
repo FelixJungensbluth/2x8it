@@ -1,5 +1,6 @@
 package Game;
 
+import Menu.Charakter;
 import Menu.Hauptmenu;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -59,7 +60,14 @@ public class GameObject {
             Die Linie des Greifhakens bewegt sich mit der gleichen Geschwindigkeit in die selbe Richtung des Spielers
              */
             if (keycode.equals(KeyCode.D) || keycode.equals(KeyCode.RIGHT)) {
-                player.setImage(Player.playerImage);
+                player.setImage(Player.playerMenschR);
+                if(Charakter.activeChar == 1) {
+                    player.setImage(Player.playerEngelR);
+                }else if(Charakter.activeChar == 2){
+                    player.setImage(Player.playerMenschR);
+                }else if(Charakter.activeChar == 3) {
+                    player.setImage(Player.playerTeufelR);
+                }
 
                 if (moveUp || moveLeft && hitbox.getX() <= 1235) {
                     MouseInput.getLine().setStartX(MouseInput.getLine().getStartX() + movementSpeed);
@@ -94,7 +102,14 @@ public class GameObject {
             Die Linie des Greifhakens bewegt sich mit der gleichen Geschwindigkeit in die selbe Richtung des Spielers
              */
             if (keycode.equals(KeyCode.A) || keycode.equals(KeyCode.LEFT) && canJump) {
-                player.setImage(Player.playerImage2);
+                player.setImage(Player.playerMenschL);
+                if(Charakter.activeChar == 1) {
+                    player.setImage(Player.playerEngelL);
+                }else if(Charakter.activeChar == 2){
+                    player.setImage(Player.playerMenschL);
+                }else if(Charakter.activeChar == 3) {
+                    player.setImage(Player.playerTeufelL);
+                }
 
                 if (moveUp || moveRight && hitbox.getX() >= 5) {
                     MouseInput.getLine().setStartX(MouseInput.getLine().getStartX() - movementSpeed);

@@ -14,8 +14,14 @@ import java.io.FileNotFoundException;
 public class Player {
 
     public Rectangle pHBox;
-    public static Image playerImage;
-    public static Image playerImage2;
+
+    public static Image playerEngelR;
+    public static Image playerEngelL;
+    public static Image playerMenschR;
+    public static Image playerMenschL;
+    public static Image playerTeufelR;
+    public static Image playerTeufelL;
+
     public ImageView playerImageView;
 
     /*
@@ -29,9 +35,15 @@ public class Player {
     }
 
     public ImageView createPlayerImage() throws FileNotFoundException {
-        playerImage = new Image("chracter2.png");
-        playerImage2 = new Image("chracter2links.png");
-           playerImageView = new ImageView(playerImage);
+
+        playerEngelR  = new Image("Charakter/char_blue_R.png");
+        playerEngelL = new Image("Charakter/char_blue_L.png");
+        playerMenschR  = new Image("Charakter/char_green_R.png");
+        playerMenschL = new Image("Charakter/char_green_L.png");
+        playerTeufelR = new Image("Charakter/char_red_R.png");
+        playerTeufelL = new Image("Charakter/char_red_L.png");
+
+        playerImageView = new ImageView(playerMenschR);
 
         playerImageView.setFitWidth(40);
         playerImageView.setFitHeight(60);

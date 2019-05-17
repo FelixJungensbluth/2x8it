@@ -37,7 +37,7 @@ public class Charakter extends Parent {
 
 
         try{
-            ImageView hintergrund = new ImageView(new Image("Images/Background.jpg"));
+            ImageView hintergrund = new ImageView(new Image("Images/CharBackground.jpg"));
             hintergrund.setFitWidth(1280);
             hintergrund.setFitHeight(720);
             Charakter.getChildren().add(hintergrund);
@@ -49,11 +49,11 @@ public class Charakter extends Parent {
             System.out.println("Couldn't load image");
         }
 
-        Boxen.CharakterItem itemChar1 = new Boxen.CharakterItem("Charakter 1");
+        Boxen.CharakterItem itemChar1 = new Boxen.CharakterItem("ENGEL");
         itemChar1.setOnMouseClicked(event -> setActiveChar(1));
-        Boxen.CharakterItem itemChar2 = new Boxen.CharakterItem("Charakter 2");
+        Boxen.CharakterItem itemChar2 = new Boxen.CharakterItem("MENSCH");
         itemChar2.setOnMouseClicked(event -> setActiveChar(2));
-        Boxen.CharakterItem itemChar3 = new Boxen.CharakterItem("Charakter 3");
+        Boxen.CharakterItem itemChar3 = new Boxen.CharakterItem("TEUFEL");
         itemChar3.setOnMouseClicked(event -> setActiveChar(3));
 
         Boxen.CharakterBox charakter  = new Boxen.CharakterBox(
@@ -80,7 +80,7 @@ public class Charakter extends Parent {
     }
 
     public ImageView createChar1Image() throws FileNotFoundException {
-        char1 = new Image("Charakter/charBlauRechts.png");
+        char1 = new Image("Charakter/char_blue_R.png");
         char1ImageView = new ImageView(char1);
 
         char1ImageView.setFitWidth(100);
@@ -92,7 +92,7 @@ public class Charakter extends Parent {
         return char1ImageView;
     }
     public ImageView createChar2Image() throws FileNotFoundException {
-        char2 = new Image("Charakter/charRotRechts.png");
+        char2 = new Image("Charakter/char_green_R.png");
         char2ImageView = new ImageView(char2);
 
         char2ImageView.setFitWidth(100);
@@ -104,7 +104,7 @@ public class Charakter extends Parent {
         return char2ImageView;
     }
     public ImageView createChar3Image() throws FileNotFoundException {
-        char3 = new Image("Charakter/charGrunRechts.png");
+        char3 = new Image("Charakter/char_red_R.png");
         char3ImageView = new ImageView(char3);
 
         char3ImageView.setFitWidth(100);
