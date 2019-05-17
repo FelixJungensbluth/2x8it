@@ -3,8 +3,11 @@ package Game;
 import javafx.scene.Group;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
@@ -16,6 +19,7 @@ import java.io.FileNotFoundException;
 public class Window {
 
     public static Group root;
+    public int score;
     Scene scene;
     Level level1;
     Player player;
@@ -24,17 +28,23 @@ public class Window {
     Rectangle pHBox;
     GameObject gObj;
     GrapplingHook hook;
+    Label label;
+    Schuss schuss;
 
-    public boolean canSpawn = true;
+    ImageView bulletStatus;
+
 
     /**
      * Die Szene wird erzeigt
      */
     public void createWindow(Stage stage) throws FileNotFoundException {
         player = new Player();
+        schuss = new Schuss();
 
         pHBox = player.createPlayerHitBox();
         playerImage = player.createPlayerImage();
+
+        bulletStatus = schuss.createBulletStatus();
 
 
         gObj = new GameObject();
@@ -45,6 +55,11 @@ public class Window {
         level1 = new Level();
 
         level1.createHitbox();
+
+        label = new Label("Score: " + 0);
+        label.setTranslateY(680);
+        label.setTextFill(Color.WHITE);
+        label.setFont(Font.font("VCR OSD MONO", 25));
 
         root = new Group(level1.createLevelImageView(),
                 /*
@@ -59,7 +74,7 @@ public class Window {
                 level1.getHitBox().get(9),
                 player.getY() >= 0 && hitbox.getY() >= 0
  */
-                playerImage, enemy.createRectangle().get(enemy.getRandomSpawnLocation()));
+                bulletStatus, label,enemy.createEnemyImage(), playerImage);
 
 
         scene = new Scene(root, 1280, 720);
@@ -92,6 +107,7 @@ public class Window {
             playerImage.setX(0);
             playerImage.setY(500);
             root.getChildren().remove(GrapplingHook.getLine());
+
 
         }
 
@@ -145,10 +161,9 @@ public class Window {
     }
 
 
-
     public void feuerFrei() {
 
-        if(Schuss.kugel <= 6) {
+        if (Schuss.kugel <= 7) {
             Schuss.schiessen(scene, playerImage);
             if (Schuss.frei == true) {
                 Schuss.mag[Schuss.getKugel()].setCenterX(Schuss.mag[Schuss.getKugel()].getCenterX() + 20 * Schuss.fpx);
@@ -159,25 +174,20 @@ public class Window {
                 }
             }
 
-            if(  Schuss.mag[Schuss.getKugel()].getBoundsInParent().intersects(enemy.createRectangle().get(enemy.getRandomSpawnLocation()).getBoundsInParent())){
-                root.getChildren().remove(enemy.createRectangle().get(enemy.getRandomSpawnLocation()));
+            if (Schuss.mag[Schuss.getKugel()].getBoundsInParent().intersects(enemy.createRectangle().get(0).getBoundsInParent())) {
+                score++;
+                label.setText("Score: " + score);
 
-            }
-
-            if(!root.getChildren().contains(enemy.createRectangle().get(enemy.getRandomSpawnLocation()))){
                 enemy.randomSpawn();
+
+
             }
 
 
-
-
-
-        }else {
-            System.out.println("Dein Magazin ist alle.");
         }
 
 
     }
-    }
+}
 
 

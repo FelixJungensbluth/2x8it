@@ -1,6 +1,7 @@
 package Game;
 
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -24,6 +25,17 @@ public class Schuss {
     static int kugel = 0;
     public static Circle[] mag = {new Circle(5), new Circle(5), new Circle(5), new Circle(5), new Circle(5), new Circle(5), new Circle(5), new Circle(5)};
 
+    public static Image bullet1;
+    public static Image bullet2;
+    public static Image bullet3;
+    public static Image bullet4;
+    public static Image bullet5;
+    public static Image bullet6;
+    public static Image bullet7;
+    public static Image bulletEmpty;
+
+    public static ImageView bulletImageView;
+
     //getKugel gibt die vorderste Kugel zurück
 
     public static int getKugel(){
@@ -37,12 +49,10 @@ public class Schuss {
                 if (event.getButton() == PRIMARY) {
                     frei = true;
                     kugel++;
-                    System.out.println(kugel);
                     Window.root.getChildren().add(mag[getKugel()]);
                     mag[getKugel()].setCenterX(player.getX() + player.getFitWidth());
                     mag[getKugel()].setCenterY(player.getY() + player.getFitHeight() / 2);
 
-                    System.out.println("schuss");
                     double px = event.getX() - player.getX();
                     double py = event.getY() - player.getY();
                     double pl = Math.sqrt((px * px) + (py * py));
@@ -50,11 +60,35 @@ public class Schuss {
                     fpy = py / pl;
                 }
 
+                switch (kugel){
+                    case 1:
+                        bulletImageView.setImage(bullet6);
+                        break;
+                    case 2:
+                        bulletImageView.setImage(bullet5);
+                        break;
+                    case 3:
+                        bulletImageView.setImage(bullet4);
+                        break;
+                    case 4:
+                        bulletImageView.setImage(bullet3);
+                        break;
+                    case 5:
+                        bulletImageView.setImage(bullet2);
+                        break;
+                    case 6:
+                        bulletImageView.setImage(bullet1);
+                        break;
+                    case 7:
+                        bulletImageView.setImage(bulletEmpty);
+                        break;
+                }
+
 
 
                 if (event.getButton() == MIDDLE) {
                     kugel = 0;
-                    System.out.println("wieder 7 Schuss im magazin");
+                    bulletImageView.setImage(bullet7);
                 }
             });
     }
@@ -70,6 +104,29 @@ public class Schuss {
         }else{
             frei = true;
         }
+
+    }
+
+    public ImageView createBulletStatus(){
+         bullet1 = new Image("/Images/b1.png");
+         bullet2 = new Image("/Images/b2.png");
+         bullet3 = new Image("/Images/b3.png");
+         bullet4 = new Image("/Images/b4.png");
+         bullet5 = new Image("/Images/b5.png");
+         bullet6 = new Image("/Images/b6.png");
+         bullet7 = new Image("/Images/b7.png");
+         bulletEmpty = new Image("/Images/b0.png");
+
+
+        bulletImageView = new ImageView(bullet7);
+
+        bulletImageView.setVisible(true);
+        bulletImageView.setFitWidth(220);
+        bulletImageView.setFitHeight(60);
+        bulletImageView.setX(1060);
+        bulletImageView.setY(660);
+
+        return bulletImageView;
 
     }
 
