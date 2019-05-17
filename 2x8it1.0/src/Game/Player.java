@@ -1,5 +1,6 @@
 package Game;
 
+import Menu.Charakter;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -44,6 +45,13 @@ public class Player {
         playerTeufelL = new Image("Charakter/char_red_L.png");
 
         playerImageView = new ImageView(playerMenschR);
+        if(Charakter.activeChar == 1) {
+            playerImageView = new ImageView(playerEngelR);
+        }else if(Charakter.activeChar == 2){
+            playerImageView = new ImageView(playerMenschR);
+        }else if(Charakter.activeChar == 3) {
+            playerImageView = new ImageView(playerTeufelR);
+        }
 
         playerImageView.setFitWidth(40);
         playerImageView.setFitHeight(60);
