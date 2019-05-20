@@ -1,7 +1,6 @@
 package Game;
 
 import Menu.Hauptmenu;
-import com.sun.management.GarbageCollectionNotificationInfo;
 import javafx.scene.Group;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
@@ -22,6 +21,7 @@ public class Window {
 
     public static Group root;
     public int score;
+    public int gameDuration = 1000;
     Scene scene;
     Level level1;
     Player player;
@@ -32,48 +32,50 @@ public class Window {
     GrapplingHook hook;
     Label label;
     Label timeLabel;
-    Schuss schuss;
-
-
-    public int gameDuration =10;
-
-
-    ImageView bulletStatus;
-
+    Label healthLabel;
+    MouseInput schuss;
+    ZeitItem zeit;
 
     /**
      * Die Szene wird erzeigt
      */
     public void createWindow(Stage stage) throws FileNotFoundException {
         player = new Player();
-        schuss = new Schuss();
+        schuss = new MouseInput();
 
         pHBox = player.createPlayerHitBox();
         playerImage = player.createPlayerImage();
 
-        bulletStatus = schuss.createBulletStatus();
 
 
         gObj = new GameObject();
         hook = new GrapplingHook();
 
         enemy = new Enemy();
+        zeit = new ZeitItem();
 
         level1 = new Level();
 
         level1.createHitbox();
 
         label = new Label("Score: " + 0);
-        label.setTranslateY(680);
-        label.setTextFill(Color.WHITE);
+        label.setTranslateX(1160);
+        label.setTranslateY(10);
+        label.setTextFill(Color.BLACK);
         label.setFont(Font.font("VCR OSD MONO", 25));
 
-        timeLabel  = new Label("Zeit: " + gameDuration);
+        timeLabel = new Label("Zeit: " + gameDuration);
         timeLabel.setTranslateX(640);
+        timeLabel.setTranslateY(10);
         timeLabel.setTextFill(Color.BLACK);
         timeLabel.setFont(Font.font("VCR OSD MONO", 25));
 
-        root = new Group(level1.createLevelImageView(),
+        healthLabel = new Label("Leben: " + player.health);
+        healthLabel.setTextFill(Color.BLACK);
+        healthLabel.setTranslateY(10);
+        healthLabel.setFont(Font.font("VCR OSD MONO", 25));
+
+        root = new Group(level1.createLevelImageView()
                 /*
                 level1.getHitBox().get(1),
                 level1.getHitBox().get(2),
@@ -84,9 +86,14 @@ public class Window {
                 level1.getHitBox().get(7),
                 level1.getHitBox().get(8),
                 level1.getHitBox().get(9),
-                player.getY() >= 0 && hitbox.getY() >= 0
+
  */
-                bulletStatus,timeLabel, label,enemy.createEnemyImage(), playerImage);
+                , timeLabel,
+                label
+                ,zeit.createRectangle().get(0),
+                enemy.createEnemyImage()
+                , playerImage,
+                healthLabel);
 
 
         scene = new Scene(root, 1280, 720);
@@ -119,6 +126,12 @@ public class Window {
             playerImage.setX(0);
             playerImage.setY(500);
             root.getChildren().remove(GrapplingHook.getLine());
+            score--;
+            player.health -= 10;
+
+            healthLabel.setText("Leben: " + player.health);
+
+            label.setText("Score: " + (score-1));
 
 
         }
@@ -135,6 +148,15 @@ public class Window {
             gObj.setGravity(0);
             gObj.setVelocity(0);
         }
+
+        if (pHBox.getBoundsInParent().intersects(level1.list.get(11).getBoundsInParent())) {
+            gObj.moveUp = true;
+            gObj.moveDown = true;
+            gObj.setGravity(0);
+            gObj.setVelocity(0);
+        }
+
+
 
         for (int i = 0; i <= level1.list.size() - 1; i++) {
             gObj.createCollision(pHBox, level1.list.get(i));
@@ -172,46 +194,45 @@ public class Window {
         hook.mouseTest(getScene(), playerImage);
     }
 
+    public void gameOver(){
+        if(player.health ==0){
+            System.out.print("gameover");
+        }
+    }
 
-    public void feuerFrei() {
+    public void itemPickUp(){
 
-        if(Schuss.kugel <= 7) {
-            Schuss.schiessen(scene, playerImage);
-            Schuss.kugelFlieg();
-            for (int j = 0; j < Schuss.mag.length; j++) {
-                for (int i = 0; i < level1.list.size(); i++) {
-                    Schuss.flugTest(level1.list.get(i), j);
-                }
-            }
-
-
-            if (Schuss.mag[Schuss.getKugel()].getBoundsInParent().intersects(enemy.createRectangle().get(0).getBoundsInParent())) {
-                score++;
-                label.setText("Score: " + score);
-                gameDuration += 10;
-
-                enemy.randomSpawn();
-
-
-            }
-
+        if(zeit.createRectangle().get(0).getBoundsInParent().intersects(pHBox.getBoundsInParent())){
+            zeit.randomItemSpawn();
+            gameDuration += 20;
 
         }
-
-
     }
 
 
-    public void timer(){
+    public void feuerFrei() {
+        MouseInput.schiessen(scene);
+        if(enemy.createRectangle().get(0).getBoundsInParent().contains(MouseInput.getMousePosX(),MouseInput.getMousePosY())) {
+            enemy.randomSpawn();
+            label.setText("Score: " + score++);
+
+        }
+
+        if(enemy.createRectangle().get(0).getBoundsInParent().intersects(pHBox.getBoundsInParent())){
+            player.health--;
+            healthLabel.setText("Leben: " + player.health);
+        }
+    }
+
+
+    public void timer() {
         gameDuration--;
-        timeLabel.setText("Zeit: " +gameDuration);
-        if(gameDuration == 0){
+        timeLabel.setText("Zeit: " + gameDuration);
+        if (gameDuration == 0) {
             Hauptmenu.createPause();
         }
 
     }
-
-
 }
 
 

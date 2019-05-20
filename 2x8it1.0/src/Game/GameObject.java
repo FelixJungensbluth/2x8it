@@ -55,7 +55,7 @@ public class GameObject {
 
             /*
             Solange die Taste D oder die rechte Pfeiltaste gedrückt wird, wird das Characterbild angezeigt welches nach rechts zeigt.
-            Wenn der Spieler nicht am rechten Rand des Bildschirmes ist wird die X-Koordinate der Hitbox und des Spielers um den bestimmten Wert
+            Wenn der Spieler nicht am rechten Rand des Bildschirmes ist wird die X-Koordinate der Hitbox und des Spsielers um den bestimmten Wert
             "speedX" plus gerechnet.
             Die Linie des Greifhakens bewegt sich mit der gleichen Geschwindigkeit in die selbe Richtung des Spielers
              */
@@ -181,6 +181,7 @@ public class GameObject {
             if (keycode.equals(KeyCode.ESCAPE)) {
                 Hauptmenu.createPause();
             }
+
         });
 
 
@@ -271,7 +272,7 @@ public class GameObject {
     /**
      * Das Bild für das Crosshair wird übergeben.
      */
-    public Image crosshairImage() throws FileNotFoundException {
+    public static Image crosshairImage() throws FileNotFoundException {
         Image cursor = new Image("Images/crosshair.png");
         return cursor;
     }

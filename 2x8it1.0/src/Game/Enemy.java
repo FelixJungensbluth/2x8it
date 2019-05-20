@@ -3,6 +3,8 @@ package Game;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
+
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -11,7 +13,7 @@ public class Enemy {
     Random ran = new Random();
     public  int randomSpawnLocation = ran.nextInt(7 + 1);
 
-    public static boolean spawn;
+
    public static ArrayList<Rectangle> enemyList = new ArrayList<>();
 
    public Image bat;
@@ -54,7 +56,8 @@ public class Enemy {
                   enemyImageView.setX(200);
                   enemyImageView.setY(540);
 
-                randomSpawnLocation = ran.nextInt(7 + 1);
+                      randomSpawnLocation = ran.nextInt(7 + 1);
+
                     break;
             case 1:
                 createRectangle().get(0).setX(1000);

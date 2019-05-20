@@ -23,6 +23,8 @@ public class Player {
     public static Image playerTeufelR;
     public static Image playerTeufelL;
 
+    public  int health = 100;
+
     public ImageView playerImageView;
 
     /*
@@ -63,4 +65,5 @@ public class Player {
 
 
     }
+
 }
