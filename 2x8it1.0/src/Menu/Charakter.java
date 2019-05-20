@@ -22,6 +22,9 @@ public class Charakter extends Parent {
     public static Image char1;
     public static Image char2;
     public static Image char3;
+    public static Image char11;
+    public static Image char21;
+    public static Image char31;
     public static ImageView char1ImageView;
     public static ImageView char2ImageView;
     public static ImageView char3ImageView;
@@ -35,6 +38,9 @@ public class Charakter extends Parent {
         char2ImageView= createChar2Image();
         char3ImageView= createChar3Image();
 
+        char11  = new Image("Charakter/Blue_Picked.png");
+        char21 = new Image("Charakter/Green_Picked.png");
+        char31  = new Image("Charakter/Red_Picked.png");
 
         try{
             ImageView hintergrund = new ImageView(new Image("Images/CharBackground.jpg"));
@@ -126,19 +132,28 @@ public class Charakter extends Parent {
 
     public static void reload() {
         if (activeChar == 1) {
-            char1ImageView.setVisible(true);
-            char2ImageView.setVisible(false);
-            char3ImageView.setVisible(false);
+            char1ImageView = new ImageView(char11);
+
+            char2ImageView = new ImageView(char2);
+
+            char3ImageView = new ImageView(char3);
+
             System.out.println("Char Nr.:" +activeChar);
         } else if (activeChar == 2) {
-            char1ImageView.setVisible(false);
-            char2ImageView.setVisible(true);
-            char3ImageView.setVisible(false);
+            char1ImageView = new ImageView(char1);
+
+            char2ImageView = new ImageView(char21);
+
+            char3ImageView = new ImageView(char3);
+
             System.out.println("Char Nr.:" +activeChar);
         } else if (activeChar == 3){
-            char1ImageView.setVisible(false);
-            char2ImageView.setVisible(false);
-            char3ImageView.setVisible(true);
+            char1ImageView = new ImageView(char1);
+
+            char2ImageView = new ImageView(char2);
+
+            char3ImageView = new ImageView(char31);
+
             System.out.println("Char Nr.:" +activeChar);
         }
     }
