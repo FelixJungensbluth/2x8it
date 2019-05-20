@@ -1,5 +1,6 @@
 package Game;
 
+import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -12,6 +13,8 @@ import java.io.FileNotFoundException;
  * Die FPS (Bilder / Sekunde) werden in der Konsole ausgegeben, damit man die Stabilität des Spiels verfolgen kann.
  */
 public class GameLoop{
+
+   public static int test = 10;
 
     /**
      * start führt nach dem Ausfüheren des Spiels die Methode aus.
@@ -61,6 +64,9 @@ public class GameLoop{
                         fps = frames;
                         frames = 0;
                         System.err.println("FPS " + fps);
+                       window.timer();
+
+
                     }
                 }
 
@@ -69,12 +75,15 @@ public class GameLoop{
                 /**
                  * Die Methoden werden aufgerufen welche eine Update pro tick brauchen.
                  */
-                window.move();
-                window.collision();
-                window.gravity();
-                window.mouseEvent();
-                window.feuerFrei();
 
+
+
+
+                    window.move();
+                    window.collision();
+                    window.gravity();
+                    window.mouseEvent();
+                    window.feuerFrei();
 
                 /**
                  * Der Mauszeiger wird geupdated

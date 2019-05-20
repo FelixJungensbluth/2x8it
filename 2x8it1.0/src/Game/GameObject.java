@@ -183,6 +183,8 @@ public class GameObject {
             }
         });
 
+
+
         /**
          * Wenn SPACE wieder losgelassen wurde wird die Gravitation und die Geschwindigkeit wieder auf den Normalwert gesetzt.
          * Dies erzeugt den Fall nach einem Sprung.

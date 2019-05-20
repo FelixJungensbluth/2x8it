@@ -1,5 +1,7 @@
 package Game;
 
+import Menu.Hauptmenu;
+import com.sun.management.GarbageCollectionNotificationInfo;
 import javafx.scene.Group;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
@@ -29,7 +31,12 @@ public class Window {
     GameObject gObj;
     GrapplingHook hook;
     Label label;
+    Label timeLabel;
     Schuss schuss;
+
+
+    public int gameDuration =10;
+
 
     ImageView bulletStatus;
 
@@ -61,6 +68,11 @@ public class Window {
         label.setTextFill(Color.WHITE);
         label.setFont(Font.font("VCR OSD MONO", 25));
 
+        timeLabel  = new Label("Zeit: " + gameDuration);
+        timeLabel.setTranslateX(640);
+        timeLabel.setTextFill(Color.BLACK);
+        timeLabel.setFont(Font.font("VCR OSD MONO", 25));
+
         root = new Group(level1.createLevelImageView(),
                 /*
                 level1.getHitBox().get(1),
@@ -74,7 +86,7 @@ public class Window {
                 level1.getHitBox().get(9),
                 player.getY() >= 0 && hitbox.getY() >= 0
  */
-                bulletStatus, label,enemy.createEnemyImage(), playerImage);
+                bulletStatus,timeLabel, label,enemy.createEnemyImage(), playerImage);
 
 
         scene = new Scene(root, 1280, 720);
@@ -163,20 +175,20 @@ public class Window {
 
     public void feuerFrei() {
 
-        if (Schuss.kugel <= 7) {
+        if(Schuss.kugel <= 7) {
             Schuss.schiessen(scene, playerImage);
-            if (Schuss.frei == true) {
-                Schuss.mag[Schuss.getKugel()].setCenterX(Schuss.mag[Schuss.getKugel()].getCenterX() + 20 * Schuss.fpx);
-                Schuss.mag[Schuss.getKugel()].setCenterY(Schuss.mag[Schuss.getKugel()].getCenterY() + 20 * Schuss.fpy);
-
+            Schuss.kugelFlieg();
+            for (int j = 0; j < Schuss.mag.length; j++) {
                 for (int i = 0; i < level1.list.size(); i++) {
-                    Schuss.flugTest(level1.list.get(i));
+                    Schuss.flugTest(level1.list.get(i), j);
                 }
             }
+
 
             if (Schuss.mag[Schuss.getKugel()].getBoundsInParent().intersects(enemy.createRectangle().get(0).getBoundsInParent())) {
                 score++;
                 label.setText("Score: " + score);
+                gameDuration += 10;
 
                 enemy.randomSpawn();
 
@@ -188,6 +200,18 @@ public class Window {
 
 
     }
+
+
+    public void timer(){
+        gameDuration--;
+        timeLabel.setText("Zeit: " +gameDuration);
+        if(gameDuration == 0){
+            Hauptmenu.createPause();
+        }
+
+    }
+
+
 }
 
 
