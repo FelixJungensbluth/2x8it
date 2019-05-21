@@ -21,7 +21,7 @@ public class Window {
 
     public static Group root;
     public int score;
-    public int gameDuration = 1000;
+    public int gameDuration = 60;
     Scene scene;
     Level level1;
     Player player;
@@ -29,7 +29,6 @@ public class Window {
     Enemy enemy;
     Rectangle pHBox;
     GameObject gObj;
-    GrapplingHook hook;
     Label label;
     Label timeLabel;
     Label healthLabel;
@@ -56,7 +55,6 @@ public class Window {
 
 
         gObj = new GameObject();
-        hook = new GrapplingHook();
 
         enemy = new Enemy();
         zeit = new ZeitItem();
@@ -136,7 +134,6 @@ public class Window {
             pHBox.setY(500);
             playerImage.setX(0);
             playerImage.setY(500);
-            root.getChildren().remove(GrapplingHook.getLine());
             score--;
             player.health -= 10;
 
@@ -200,23 +197,27 @@ public class Window {
     /*
      die Greifhakenmechanik wird auf den SPieler in der Szenengruppe übertragen
      */
-    public void mouseEvent() {
-
-        hook.mouseTest(getScene(), playerImage);
-    }
 
     public void gameOver(){
 
     }
 
-    public void itemPickUp(){
+    public boolean test(){
 
-        if(zeit.createRectangle().get(0).getBoundsInLocal().intersects(pHBox.getBoundsInLocal())){
+        if(zeit.createRectangle().get(0).getBoundsInLocal().intersects(pHBox.getBoundsInParent())){
 
-            System.out.print("sdfsfsdfgsadg");
-            gameDuration += 20;
+            return true;
+
+
+        }else{
+            return  false;
+        }
+    }
+
+
+    public void test2(){
+        if(test()) {
             zeit.randomItemSpawn();
-
         }
     }
 
@@ -239,15 +240,16 @@ public class Window {
     public void timer() {
         gameDuration--;
         timeLabel.setText("Zeit: " + gameDuration);
-        if (gameDuration == 0) {
-            Hauptmenu.createPause();
-        }
 
     }
 
-    public void setGameOver(){
+    public boolean setGameOver(){
         if(player.health ==0 || gameDuration == 0){
-            Hauptmenu.createGameOver();
+            System.out.print("gameover");
+           return true;
+
+        }else{
+            return false;
         }
     }
 

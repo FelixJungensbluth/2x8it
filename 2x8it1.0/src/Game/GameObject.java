@@ -70,7 +70,6 @@ public class GameObject {
                 }
 
                 if (moveUp || moveLeft && hitbox.getX() <= 1235) {
-                    GrapplingHook.getLine().setStartX(GrapplingHook.getLine().getStartX() + movementSpeed);
                     hitbox.setX(hitbox.getX() + movementSpeed);
                     player.setX(player.getX() + movementSpeed);
 
@@ -88,8 +87,6 @@ public class GameObject {
                 player.setY(player.getY() - jumpHeight);
 
                 if (moveLeft && hitbox.getX() <= 1235) {
-                    GrapplingHook.getLine().setStartX(GrapplingHook.getLine().getStartX() + movementSpeed);
-                    GrapplingHook.getLine().setStartY(GrapplingHook.getLine().getStartY() - jumpHeight);
                     hitbox.setX(hitbox.getX() + movementSpeed);
                     player.setX(player.getX() + movementSpeed);
                 }
@@ -112,7 +109,6 @@ public class GameObject {
                 }
 
                 if (moveUp || moveRight && hitbox.getX() >= 5) {
-                    GrapplingHook.getLine().setStartX(GrapplingHook.getLine().getStartX() - movementSpeed);
                     hitbox.setX(hitbox.getX() - movementSpeed);
                     player.setX(player.getX() - movementSpeed);
                 }
@@ -129,8 +125,7 @@ public class GameObject {
                 player.setY(player.getY() - jumpHeight);
 
                 if (moveLeft && hitbox.getX() >= movementSpeed) {
-                    GrapplingHook.getLine().setStartX(GrapplingHook.getLine().getStartX() - movementSpeed);
-                    GrapplingHook.getLine().setStartY(GrapplingHook.getLine().getStartY() - jumpHeight);
+
 
                     hitbox.setX(hitbox.getX() - movementSpeed);
                     player.setX(player.getX() - movementSpeed);
@@ -145,7 +140,6 @@ public class GameObject {
             if (keycode.equals(KeyCode.SPACE) && canJump) {
                 hitbox.setY(hitbox.getY() - jumpHeight);
                 player.setY(player.getY() - jumpHeight);
-                GrapplingHook.getLine().setStartY(GrapplingHook.getLine().getStartY() - jumpHeight);
             }
 
 

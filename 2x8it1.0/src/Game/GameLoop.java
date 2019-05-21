@@ -1,8 +1,7 @@
 package Game;
 
-import javafx.animation.Animation;
+import Menu.Hauptmenu;
 import javafx.animation.AnimationTimer;
-import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
@@ -12,15 +11,15 @@ import java.io.FileNotFoundException;
  * Die GameLoop erzeugt eine Methode welche das Spiel 60mal pro Sekunde updatet.
  * Die FPS (Bilder / Sekunde) werden in der Konsole ausgegeben, damit man die Stabilität des Spiels verfolgen kann.
  */
-public class GameLoop{
+public class GameLoop {
 
-   public static int test = 10;
+    public static int test = 10;
 
     /**
      * start führt nach dem Ausfüheren des Spiels die Methode aus.
      * In dieser wird durch ein AnimationTimer und einem handler eine Schleife erzeugt, welche die Methode 60mal pro Sekunde ausführt.
      */
-    public void run(Stage stage)  {
+    public void run(Stage stage) {
         /** Ein neues Window Objekt wird erzeugt
          */
         Window window = new Window();
@@ -64,7 +63,7 @@ public class GameLoop{
                         fps = frames;
                         frames = 0;
                         System.err.println("FPS " + fps);
-                       window.timer();
+                        window.timer();
 
 
                     }
@@ -77,18 +76,18 @@ public class GameLoop{
                  */
 
 
+                if (window.setGameOver()) {
+                    stop();
+                    Hauptmenu.createGameOver();
 
+                }
 
-                    window.move();
-                    window.collision();
-                    window.gravity();
-                    window.mouseEvent();
-                    window.feuerFrei();
-                    window.itemPickUp();
-                    window.gameOver();
-                    window.setGameOver();
-                    window.createHealthBar();
-                    window.ItemCollision();
+                window.move();
+                window.collision();
+                window.gravity();
+                window.feuerFrei();
+                window.gameOver();
+                window.createHealthBar();
 
                 /**
                  * Der Mauszeiger wird geupdated
