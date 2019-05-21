@@ -10,9 +10,7 @@ import javafx.stage.Stage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import HighscoreListe.*;
 
 public class Highscore extends Parent {
     Boxen.MenuItem itemZurück;
@@ -31,31 +29,29 @@ public class Highscore extends Parent {
         }
 
         Boxen.ScoreBox scores = new Boxen.ScoreBox(new Boxen.ScoreItem("Highscore"));
-/*
-
-        BufferedReader dateiLesen;
         try {
-            dateiLesen = new BufferedReader(new FileReader("/Highscore.txt"));
-                scores =new Boxen.ScoreBox(
-                        new Boxen.ScoreItem("Highscore"),
-                        new Boxen.ScoreItem("01: "+dateiLesen.readLine()),
-                        new Boxen.ScoreItem("02: "+dateiLesen.readLine()),
-                        new Boxen.ScoreItem("03: "+dateiLesen.readLine()),
-                        new Boxen.ScoreItem("04: "+dateiLesen.readLine()),
-                        new Boxen.ScoreItem("05: "+dateiLesen.readLine()),
-                        new Boxen.ScoreItem("06: "+dateiLesen.readLine()),
-                        new Boxen.ScoreItem("07: "+dateiLesen.readLine()),
-                        new Boxen.ScoreItem("08: "+dateiLesen.readLine()),
-                        new Boxen.ScoreItem("09: "+dateiLesen.readLine()),
-                        new Boxen.ScoreItem("10: "+dateiLesen.readLine()));
-                dateiLesen.close();
+            BufferedReader reader = new BufferedReader(new FileReader("/Users/felixjungensbluth/Desktop/Highscore.txt"));
+            scores =new Boxen.ScoreBox(
+                    new Boxen.ScoreItem("Highscore"),
+                    new Boxen.ScoreItem("01: "+ reader.readLine()),
+                    new Boxen.ScoreItem("02: "+ reader.readLine()),
+                    new Boxen.ScoreItem("03: "+ reader.readLine()),
+                    new Boxen.ScoreItem("04: "+ reader.readLine()),
+                    new Boxen.ScoreItem("05: "+ reader.readLine()),
+                    new Boxen.ScoreItem("06: "+ reader.readLine()),
+                    new Boxen.ScoreItem("07: "+ reader.readLine()),
+                    new Boxen.ScoreItem("08: "+ reader.readLine()),
+                    new Boxen.ScoreItem("09: "+ reader.readLine()),
+                    new Boxen.ScoreItem("10: "+ reader.readLine())
+                    );
+            reader.close();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
         scores.setTranslateX(350);
         scores.setTranslateY(100);
-*/
+
         itemZurück = new Boxen.MenuItem("ZURÜCK");
 
         Boxen.MenuItem itemExit = new Boxen.MenuItem("BEENDEN");
@@ -70,8 +66,8 @@ public class Highscore extends Parent {
         Highscore.getChildren().addAll(menu, scores);
         return Highscore;
     }
-
     public void zurück(Stage stage, Scene scene){
         itemZurück.setOnMouseClicked(event -> stage.setScene(scene));
     }
+
 }

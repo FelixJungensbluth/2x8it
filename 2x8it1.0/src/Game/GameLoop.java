@@ -86,6 +86,7 @@ public class GameLoop{
                     window.feuerFrei();
                     window.itemPickUp();
                     window.gameOver();
+                    window.setGameOver();
 
                 /**
                  * Der Mauszeiger wird geupdated

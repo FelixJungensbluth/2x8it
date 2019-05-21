@@ -35,9 +35,8 @@ public class Charakter extends Parent {
         char2ImageView= createChar2Image();
         char3ImageView= createChar3Image();
 
-
         try{
-            ImageView hintergrund = new ImageView(new Image("Images/CharBackground.png"));
+            ImageView hintergrund = new ImageView(new Image("Images/CharBackground.jpg"));
             hintergrund.setFitWidth(1280);
             hintergrund.setFitHeight(720);
             Charakter.getChildren().add(hintergrund);
@@ -85,8 +84,8 @@ public class Charakter extends Parent {
 
         char1ImageView.setFitWidth(100);
         char1ImageView.setFitHeight(150);
-        char1ImageView.setX(320);
-        char1ImageView.setY(300);
+        char1ImageView.setX(340);
+        char1ImageView.setY(303);
         char1ImageView.setVisible(true);
 
         return char1ImageView;
@@ -97,8 +96,8 @@ public class Charakter extends Parent {
 
         char2ImageView.setFitWidth(100);
         char2ImageView.setFitHeight(150);
-        char2ImageView.setX(570);
-        char2ImageView.setY(300);
+        char2ImageView.setX(590);
+        char2ImageView.setY(303);
         char2ImageView.setVisible(true);
 
         return char2ImageView;
@@ -110,7 +109,7 @@ public class Charakter extends Parent {
         char3ImageView.setFitWidth(100);
         char3ImageView.setFitHeight(150);
         char3ImageView.setX(840);
-        char3ImageView.setY(300);
+        char3ImageView.setY(303);
         char3ImageView.setVisible(true);
 
         return char3ImageView;
@@ -126,19 +125,10 @@ public class Charakter extends Parent {
 
     public static void reload() {
         if (activeChar == 1) {
-            char1ImageView.setVisible(true);
-            char2ImageView.setVisible(false);
-            char3ImageView.setVisible(false);
             System.out.println("Char Nr.:" +activeChar);
         } else if (activeChar == 2) {
-            char1ImageView.setVisible(false);
-            char2ImageView.setVisible(true);
-            char3ImageView.setVisible(false);
             System.out.println("Char Nr.:" +activeChar);
         } else if (activeChar == 3){
-            char1ImageView.setVisible(false);
-            char2ImageView.setVisible(false);
-            char3ImageView.setVisible(true);
             System.out.println("Char Nr.:" +activeChar);
         }
     }

@@ -1,6 +1,7 @@
 package Menu;
 
 import Game.GameLoop;
+import HighscoreListe.*;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,7 +17,9 @@ public class Hauptmenu extends Application {
     Scene CharakterScene;
     Scene OptionenScene;
     Scene HighscoreScene;
+    Highscore highscore = new Highscore();
     static Scene PauseScene;
+    static Scene GameoverScene;
     static GameLoop gameLoop;
 
     private Parent create(){
@@ -39,6 +42,7 @@ public class Hauptmenu extends Application {
         itemMehrspieler.setOnMouseClicked(event -> window.setScene(MehrspielerScene));
 
         Boxen.MenuItem itemHighscore = new Boxen.MenuItem("HIGHSCORE");
+        //itemHighscore.setOnMouseClicked(event -> List.rebuild());
         itemHighscore.setOnMouseClicked(event -> window.setScene(HighscoreScene));
 
         Boxen.MenuItem itemCharakter = new Boxen.MenuItem("CHARAKTER");
@@ -50,13 +54,17 @@ public class Hauptmenu extends Application {
         Boxen.MenuItem itemBeenden = new Boxen.MenuItem("BEENDEN");
         itemBeenden.setOnMouseClicked(event -> System.exit(0));
 
+        Boxen.MenuItem itemGameover = new Boxen.MenuItem("gameover");
+        itemGameover.setOnMouseClicked(event -> window.setScene(GameoverScene));
+
         Boxen.MenuBox menu = new Boxen.MenuBox(
                 itemEinzelspieler,
                 itemMehrspieler,
                 itemHighscore,
                 itemCharakter,
                 itemOptionen,
-                itemBeenden
+                itemBeenden,
+                itemGameover
         );
         menu.setTranslateX(480);
         menu.setTranslateY(350);
@@ -74,6 +82,7 @@ public class Hauptmenu extends Application {
         Optionen optionen = new Optionen();
         Highscore highscore = new Highscore();
         Pause pause = new Pause();
+        Gameover gameover = new Gameover();
         gameLoop = new GameLoop();
 
         HauptmenuScene = new Scene(create());
@@ -83,6 +92,7 @@ public class Hauptmenu extends Application {
         OptionenScene = new Scene(optionen.create());
         HighscoreScene = new Scene(highscore.create());
         PauseScene = new Scene(pause.create());
+        GameoverScene = new Scene(gameover.create());
 
         einzelspieler.zurück(primaryStage,getHauptScene());
         mehrspieler.zurück(primaryStage,getHauptScene());
@@ -90,6 +100,7 @@ public class Hauptmenu extends Application {
         charakter.zurück(primaryStage,getHauptScene());
         optionen.zurück(primaryStage,getHauptScene());
         pause.hauptmenü(primaryStage,getHauptScene());
+        highscore.zurück(primaryStage,getHauptScene());
 
         window = primaryStage;
         window.setScene(HauptmenuScene);
@@ -108,6 +119,10 @@ public class Hauptmenu extends Application {
 
     public static void createPause(){
         window.setScene(PauseScene);
+    }
+
+    public static void createGameOver(){
+        window.setScene(GameoverScene);
     }
 
     public static void startGame(){

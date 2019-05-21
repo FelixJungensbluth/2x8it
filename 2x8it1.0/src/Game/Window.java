@@ -59,7 +59,7 @@ public class Window {
         level1.createHitbox();
 
         label = new Label("Score: " + 0);
-        label.setTranslateX(1160);
+        label.setTranslateX(1145);
         label.setTranslateY(10);
         label.setTextFill(Color.BLACK);
         label.setFont(Font.font("VCR OSD MONO", 25));
@@ -72,6 +72,7 @@ public class Window {
 
         healthLabel = new Label("Leben: " + player.health);
         healthLabel.setTextFill(Color.BLACK);
+        healthLabel.setTranslateX(5);
         healthLabel.setTranslateY(10);
         healthLabel.setFont(Font.font("VCR OSD MONO", 25));
 
@@ -94,6 +95,8 @@ public class Window {
                 enemy.createEnemyImage()
                 , playerImage,
                 healthLabel);
+
+
 
 
         scene = new Scene(root, 1280, 720);
@@ -232,6 +235,12 @@ public class Window {
             Hauptmenu.createPause();
         }
 
+    }
+
+    public void setGameOver(){
+        if(player.health ==0 || gameDuration == 0){
+            Hauptmenu.createGameOver();
+        }
     }
 }
 
