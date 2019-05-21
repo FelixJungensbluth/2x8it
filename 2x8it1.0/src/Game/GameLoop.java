@@ -87,6 +87,8 @@ public class GameLoop{
                     window.itemPickUp();
                     window.gameOver();
                     window.setGameOver();
+                    window.createHealthBar();
+                    window.ItemCollision();
 
                 /**
                  * Der Mauszeiger wird geupdated

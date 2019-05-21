@@ -29,6 +29,7 @@ public class Highscore extends Parent {
         }
 
         Boxen.ScoreBox scores = new Boxen.ScoreBox(new Boxen.ScoreItem("Highscore"));
+        /*
         try {
             BufferedReader reader = new BufferedReader(new FileReader("/Users/felixjungensbluth/Desktop/Highscore.txt"));
             scores =new Boxen.ScoreBox(
@@ -49,6 +50,8 @@ public class Highscore extends Parent {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+         */
         scores.setTranslateX(350);
         scores.setTranslateY(100);
 

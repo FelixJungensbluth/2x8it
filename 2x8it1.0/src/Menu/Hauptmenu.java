@@ -1,7 +1,6 @@
 package Menu;
 
 import Game.GameLoop;
-import HighscoreListe.*;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

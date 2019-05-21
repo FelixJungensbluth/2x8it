@@ -33,7 +33,8 @@ public class Level {
         list.add(new Rectangle(840, 610, 440, 110));
         list.add(new Rectangle(1120, 530, 160, 80));
         list.add(new Rectangle(730, 0, 20, 440));
-        list.add(new Rectangle(440, 245, 20, 150));
+        list.add(new Rectangle(460, 245, 5, 150));
+        list.add(new Rectangle(830, 440, 5, 160));
 
         for (int i = 0; i <= list.size() - 1; i++) {
             list.get(i).setFill(Color.rgb(0, 0, 255, 0.3));

@@ -23,7 +23,7 @@ public class Player {
     public static Image playerTeufelR;
     public static Image playerTeufelL;
 
-    public  int health = 100;
+    public  int health = 1000;
 
     public ImageView playerImageView;
 

@@ -23,6 +23,7 @@ public class Boxen {
         }
     }
     public static class MenuItem extends StackPane {
+
         public MenuItem(String name) {
             LinearGradient mausAufVerlauf = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE,
                     new Stop(0, Color.TRANSPARENT),

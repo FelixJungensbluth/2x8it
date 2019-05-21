@@ -34,6 +34,7 @@ public class Window {
     Label timeLabel;
     Label healthLabel;
     MouseInput schuss;
+    Rectangle healthbar;
     ZeitItem zeit;
 
     /**
@@ -42,6 +43,12 @@ public class Window {
     public void createWindow(Stage stage) throws FileNotFoundException {
         player = new Player();
         schuss = new MouseInput();
+        healthbar = new Rectangle();
+
+        healthbar.setY(15);
+        healthbar.setX(15);
+        healthbar.setHeight(25);
+        healthbar.setFill(Color.rgb(255,0,0,0.8));
 
         pHBox = player.createPlayerHitBox();
         playerImage = player.createPlayerImage();
@@ -59,24 +66,24 @@ public class Window {
         level1.createHitbox();
 
         label = new Label("Score: " + 0);
-        label.setTranslateX(1145);
-        label.setTranslateY(10);
+        label.setTranslateX(1140);
+        label.setTranslateY(15);
         label.setTextFill(Color.BLACK);
         label.setFont(Font.font("VCR OSD MONO", 25));
 
         timeLabel = new Label("Zeit: " + gameDuration);
         timeLabel.setTranslateX(640);
-        timeLabel.setTranslateY(10);
+        timeLabel.setTranslateY(15);
         timeLabel.setTextFill(Color.BLACK);
         timeLabel.setFont(Font.font("VCR OSD MONO", 25));
 
-        healthLabel = new Label("Leben: " + player.health);
+        healthLabel = new Label( player.health + " %");
         healthLabel.setTextFill(Color.BLACK);
-        healthLabel.setTranslateX(5);
-        healthLabel.setTranslateY(10);
+        healthLabel.setTranslateX(15);
+        healthLabel.setTranslateY(15);
         healthLabel.setFont(Font.font("VCR OSD MONO", 25));
 
-        root = new Group(level1.createLevelImageView()
+        root = new Group(level1.createLevelImageView(),
                 /*
                 level1.getHitBox().get(1),
                 level1.getHitBox().get(2),
@@ -89,11 +96,12 @@ public class Window {
                 level1.getHitBox().get(9),
 
  */
-                , timeLabel,
-                label
-                ,zeit.createRectangle().get(0),
-                enemy.createEnemyImage()
-                , playerImage,
+                 timeLabel,
+                label,
+                enemy.createEnemyImage(),
+                zeit.createItemImageTime(),
+                playerImage,
+                healthbar,
                 healthLabel);
 
 
@@ -132,7 +140,7 @@ public class Window {
             score--;
             player.health -= 10;
 
-            healthLabel.setText("Leben: " + player.health);
+            healthLabel.setText(player.health + " %");
 
             label.setText("Score: " + (score-1));
 
@@ -152,7 +160,7 @@ public class Window {
             gObj.setVelocity(0);
         }
 
-        if (pHBox.getBoundsInParent().intersects(level1.list.get(11).getBoundsInParent())) {
+        if (pHBox.getBoundsInParent().intersects(level1.list.get(11).getBoundsInParent()) || pHBox.getBoundsInParent().intersects(level1.list.get(12).getBoundsInParent())) {
             gObj.moveUp = true;
             gObj.moveDown = true;
             gObj.setGravity(0);
@@ -198,16 +206,16 @@ public class Window {
     }
 
     public void gameOver(){
-        if(player.health ==0){
-            System.out.print("gameover");
-        }
+
     }
 
     public void itemPickUp(){
 
-        if(zeit.createRectangle().get(0).getBoundsInParent().intersects(pHBox.getBoundsInParent())){
-            zeit.randomItemSpawn();
+        if(zeit.createRectangle().get(0).getBoundsInLocal().intersects(pHBox.getBoundsInLocal())){
+
+            System.out.print("sdfsfsdfgsadg");
             gameDuration += 20;
+            zeit.randomItemSpawn();
 
         }
     }
@@ -223,7 +231,7 @@ public class Window {
 
         if(enemy.createRectangle().get(0).getBoundsInParent().intersects(pHBox.getBoundsInParent())){
             player.health--;
-            healthLabel.setText("Leben: " + player.health);
+            healthLabel.setText(player.health + " %");
         }
     }
 
@@ -241,6 +249,11 @@ public class Window {
         if(player.health ==0 || gameDuration == 0){
             Hauptmenu.createGameOver();
         }
+    }
+
+
+    public void createHealthBar(){
+        healthbar.setWidth(player.health*3);
     }
 }
 
