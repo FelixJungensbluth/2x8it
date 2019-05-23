@@ -12,6 +12,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
+import java.util.Random;
 
 /**
  * die Windwow Klasse bezieht sich auf die Erstellung von der Scene.
@@ -21,7 +22,7 @@ public class Window {
 
     public static Group root;
     public int score;
-    public int gameDuration = 60;
+    public static int gameDuration = 60;
     Scene scene;
     Level level1;
     Player player;
@@ -36,6 +37,9 @@ public class Window {
     Rectangle healthbar;
     ZeitItem zeit;
 
+    static Random  ran = new Random();
+    public static  int randomSpawnLocation = ran.nextInt(4 + 1);
+
     /**
      * Die Szene wird erzeigt
      */
@@ -47,7 +51,7 @@ public class Window {
         healthbar.setY(15);
         healthbar.setX(15);
         healthbar.setHeight(25);
-        healthbar.setFill(Color.rgb(255,0,0,0.8));
+        healthbar.setFill(Color.rgb(255,0,0,1));
 
         pHBox = player.createPlayerHitBox();
         playerImage = player.createPlayerImage();
@@ -64,22 +68,22 @@ public class Window {
         level1.createHitbox();
 
         label = new Label("Score: " + 0);
-        label.setTranslateX(1140);
-        label.setTranslateY(15);
-        label.setTextFill(Color.BLACK);
-        label.setFont(Font.font("VCR OSD MONO", 25));
+        label.setTranslateX(1125);
+        label.setTranslateY(18);
+        label.setTextFill(Color.WHITE);
+        label.setFont(Font.font("VCR OSD MONO", 20));
 
         timeLabel = new Label("Zeit: " + gameDuration);
-        timeLabel.setTranslateX(640);
-        timeLabel.setTranslateY(15);
-        timeLabel.setTextFill(Color.BLACK);
-        timeLabel.setFont(Font.font("VCR OSD MONO", 25));
+        timeLabel.setTranslateX(590);
+        timeLabel.setTranslateY(18);
+        timeLabel.setTextFill(Color.WHITE);
+        timeLabel.setFont(Font.font("VCR OSD MONO", 20));
 
         healthLabel = new Label( player.health + " %");
-        healthLabel.setTextFill(Color.BLACK);
-        healthLabel.setTranslateX(15);
-        healthLabel.setTranslateY(15);
-        healthLabel.setFont(Font.font("VCR OSD MONO", 25));
+        healthLabel.setTextFill(Color.WHITE);
+        healthLabel.setTranslateX(25);
+        healthLabel.setTranslateY(18);
+        healthLabel.setFont(Font.font("VCR OSD MONO", 20));
 
         root = new Group(level1.createLevelImageView(),
                 /*
@@ -94,12 +98,14 @@ public class Window {
                 level1.getHitBox().get(9),
 
  */
-                 timeLabel,
-                label,
+
+
                 enemy.createEnemyImage(),
                 zeit.createItemImageTime(),
                 playerImage,
-                healthbar,
+                healthbar,level1.createUI(),
+                timeLabel,
+                label,
                 healthLabel);
 
 
@@ -202,26 +208,6 @@ public class Window {
 
     }
 
-    public boolean test(){
-
-        if(zeit.createRectangle().get(0).getBoundsInLocal().intersects(pHBox.getBoundsInParent())){
-
-            return true;
-
-
-        }else{
-            return  false;
-        }
-    }
-
-
-    public void test2(){
-        if(test()) {
-            zeit.randomItemSpawn();
-        }
-    }
-
-
     public void feuerFrei() {
         MouseInput.schiessen(scene);
         if(enemy.createRectangle().get(0).getBoundsInParent().contains(MouseInput.getMousePosX(),MouseInput.getMousePosY())) {
@@ -243,8 +229,8 @@ public class Window {
 
     }
 
-    public boolean setGameOver(){
-        if(player.health ==0 || gameDuration == 0){
+    public boolean setGameOverTime(){
+        if(gameDuration == 0){
             System.out.print("gameover");
            return true;
 
@@ -253,7 +239,26 @@ public class Window {
         }
     }
 
+    public boolean setGameOverHealth(){
+        if(player.getHealth() == 0){
+            System.out.print("gameover");
+            return true;
 
+        }else{
+            return false;
+        }
+    }
+
+    public void setPickUp() {
+        if (pHBox.getBoundsInParent().intersects(zeit.createRectangle().get(0).getBoundsInParent())) {
+            randomSpawnLocation = ran.nextInt(4 + 1);
+            zeit.randomItemSpawn();
+
+            System.out.println(randomSpawnLocation = ran.nextInt(4 + 1));
+
+        }
+
+    }
     public void createHealthBar(){
         healthbar.setWidth(player.health*3);
     }

@@ -63,5 +63,18 @@ public class Level {
 
     }
 
+    public ImageView createUI() throws FileNotFoundException {
+        lvlImage = new Image("Images/ui.png");
+        lvlImageView = new ImageView(lvlImage);
+        lvlImageView.setFitWidth(0);
+        lvlImageView.setFitHeight(0);
+        lvlImageView.setX(0);
+        lvlImageView.setY(0);
+        lvlImageView.setVisible(true);
+
+        return lvlImageView;
+
+    }
+
 
 }

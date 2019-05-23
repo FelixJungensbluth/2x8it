@@ -66,4 +66,8 @@ public class Player {
 
     }
 
+    public int getHealth(){
+        return  health;
+    }
+
 }

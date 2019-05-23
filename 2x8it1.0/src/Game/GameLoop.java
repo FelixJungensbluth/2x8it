@@ -23,88 +23,98 @@ public class GameLoop {
         /** Ein neues Window Objekt wird erzeugt
          */
         Window window = new Window();
-        new AnimationTimer() {
+        ZeitItem test = new ZeitItem();
 
-            /**
-             * Die maxiamle Updaterate wird auf 60 gesetzt.
-             * Die genau Systemzeit wird von Nanosekunden auf Sekunden umgewandelt.
-             * Ebenso werden die Variablen für die Fps anzeige angelegt
-             */
-            private final double UPDATE_CAP = 1.0 / 60;
-            double lastTime = System.nanoTime() / 1000000000.0;
-            double passedTime = 0;
-            double frameTime = 0;
-            double unprocessedTime = 0;
-            int frames = 0;
-            int fps = 0;
-
-            /**
-             *  Die handel Mehtode erzeugt eine game Tick, welcher 60mal pro Sekunde das Spiel updated (die Methoden innerhalb von handle() ausführt).
-             */
-            public void handle(long currentNanoTime) {
-                double firstTime = System.nanoTime() / 1000000000.0;
-                passedTime = firstTime - lastTime;
-                lastTime = firstTime;
-                unprocessedTime += passedTime;
-                frameTime += passedTime;
+            new AnimationTimer() {
 
                 /**
-                 *  Die handel Mehtode wird solange ausgeführt solange die nicht Bearbeitete Zeit Größer ist als die UpdateRate, was aber immer der Fall ist
+                 * Die maxiamle Updaterate wird auf 60 gesetzt.
+                 * Die genau Systemzeit wird von Nanosekunden auf Sekunden umgewandelt.
+                 * Ebenso werden die Variablen für die Fps anzeige angelegt
                  */
-                while (unprocessedTime >= UPDATE_CAP) {
-                    unprocessedTime -= UPDATE_CAP;
+                private final double UPDATE_CAP = 1.0 / 60;
+                double lastTime = System.nanoTime() / 1000000000.0;
+                double passedTime = 0;
+                double frameTime = 0;
+                double unprocessedTime = 0;
+                int frames = 0;
+                int fps = 0;
+
+                /**
+                 * Die handel Mehtode erzeugt eine game Tick, welcher 60mal pro Sekunde das Spiel updated (die Methoden innerhalb von handle() ausführt).
+                 */
+                public void handle(long currentNanoTime) {
+                    double firstTime = System.nanoTime() / 1000000000.0;
+                    passedTime = firstTime - lastTime;
+                    lastTime = firstTime;
+                    unprocessedTime += passedTime;
+                    frameTime += passedTime;
 
                     /**
-                     * Soblald die frameTime = 1 Sekunde ist wird die frameTime wieder auf 0 zurückgesetzt und die Fps werden mit den Frames gleichgesetzt.
-                     * Ebnenso werden die frames zurückgestezt. Da Die Updaterate höchstens 60 beträgt könenn die frames maximal 61 erreichen.
+                     *  Die handel Mehtode wird solange ausgeführt solange die nicht Bearbeitete Zeit Größer ist als die UpdateRate, was aber immer der Fall ist
                      */
-                    if (frameTime >= 1.0) {
-                        frameTime = 0;
-                        fps = frames;
-                        frames = 0;
-                        System.err.println("FPS " + fps);
-                        window.timer();
+                    while (unprocessedTime >= UPDATE_CAP) {
+                        unprocessedTime -= UPDATE_CAP;
 
+                        /**
+                         * Soblald die frameTime = 1 Sekunde ist wird die frameTime wieder auf 0 zurückgesetzt und die Fps werden mit den Frames gleichgesetzt.
+                         * Ebnenso werden die frames zurückgestezt. Da Die Updaterate höchstens 60 beträgt könenn die frames maximal 61 erreichen.
+                         */
+                        if (frameTime >= 1.0) {
+                            frameTime = 0;
+                            fps = frames;
+                            frames = 0;
+                            System.err.println("FPS " + fps);
+                            window.timer();
+
+
+                        }
+                    }
+
+                    frames++;
+
+                    /**
+                     * Die Methoden werden aufgerufen welche eine Update pro tick brauchen.
+                     */
+
+
+                    if (window.setGameOverHealth()) {
+                        stop();
+                        Hauptmenu.createGameOver();
 
                     }
+
+                    if (window.setGameOverTime()) {
+                        stop();
+                        Hauptmenu.createGameOver();
+
+                    }
+
+
+                    window.setPickUp();
+                    window.move();
+                    window.collision();
+                    window.gravity();
+                    window.feuerFrei();
+                    window.gameOver();
+                    window.createHealthBar();
+
+                    /**
+                     * Der Mauszeiger wird geupdated
+                     */
+
+                    try {
+                        window.createCrosshair();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+
                 }
-
-                frames++;
-
                 /**
-                 * Die Methoden werden aufgerufen welche eine Update pro tick brauchen.
+                 * die start() wird rekusiv aufgerufen
                  */
-
-
-                if (window.setGameOver()) {
-                    stop();
-                    Hauptmenu.createGameOver();
-
-                }
-
-                window.move();
-                window.collision();
-                window.gravity();
-                window.feuerFrei();
-                window.gameOver();
-                window.createHealthBar();
-
-                /**
-                 * Der Mauszeiger wird geupdated
-                 */
-
-                try {
-                    window.createCrosshair();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-            /**
-             * die start() wird rekusiv aufgerufen
-             */
-        }.start();
+            }.start();
 
         /**
          * Die Szene wird durch createWindow() erzeugt, welche von der Window Klasse vererbt wurde

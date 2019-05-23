@@ -22,6 +22,7 @@ public class GameObject {
     public int gravity;
     public int velocity;
     public double movementSpeed = 10;
+    public double movementSpeedJump = 20;
     public double jumpHeight = 120;
     public boolean collision = false;
     public boolean canJump = false;
@@ -87,8 +88,8 @@ public class GameObject {
                 player.setY(player.getY() - jumpHeight);
 
                 if (moveLeft && hitbox.getX() <= 1235) {
-                    hitbox.setX(hitbox.getX() + movementSpeed);
-                    player.setX(player.getX() + movementSpeed);
+                    hitbox.setX(hitbox.getX() + movementSpeedJump);
+                    player.setX(player.getX() + movementSpeedJump);
                 }
             }
 
@@ -127,8 +128,8 @@ public class GameObject {
                 if (moveLeft && hitbox.getX() >= movementSpeed) {
 
 
-                    hitbox.setX(hitbox.getX() - movementSpeed);
-                    player.setX(player.getX() - movementSpeed);
+                    hitbox.setX(hitbox.getX() - movementSpeedJump);
+                    player.setX(player.getX() - movementSpeedJump);
                 }
 
             }
@@ -248,18 +249,6 @@ public class GameObject {
                 canJump = false;
             }
         }
-    }
-
-    public void test(Circle circle, Rectangle rec){
-        if (canSpawn) {
-            Window.root.getChildren().add(rec);
-            canSpawn = false;
-        }
-
-        if(!canSpawn && circle.getBoundsInParent().intersects(rec.getBoundsInParent())){
-            Window.root.getChildren().remove(rec);
-        }
-
     }
 
 
