@@ -1,5 +1,6 @@
-package Game;
+package Items;
 
+import Game.Window;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
@@ -11,13 +12,13 @@ public class ZeitItem {
 
     public boolean collision = false;
 
-    ImageView timeItem = new ImageView(new Image("Items/Time.png"));
+    static ImageView  timeItem = new ImageView(new Image("Items/Time.png"));
     ;
 
     public static ArrayList<Rectangle> itemSpawn = new ArrayList<>();
 
 
-    public ArrayList<Rectangle> createRectangle() {
+    public static ArrayList<Rectangle> createRectangle() {
 
 
         itemSpawn.add(new Rectangle(900, 540, 30, 30
@@ -26,7 +27,7 @@ public class ZeitItem {
     }
 
 
-    public ImageView createItemImageTime() {
+    public static ImageView createItemImageTime() {
         timeItem.setY(540);
         timeItem.setX(900);
 
@@ -41,7 +42,7 @@ public class ZeitItem {
 
 
 
-    public void randomItemSpawn() {
+    public static void randomItemSpawn() {
 
 
         if (Window.randomSpawnLocation == 1) {
@@ -69,8 +70,8 @@ public class ZeitItem {
             createRectangle().get(0).setX(980);
             createRectangle().get(0).setY(120);
 
-            timeItem.setX(1000);
-            timeItem.setY(540);
+            timeItem.setX(980);
+            timeItem.setY(120);
 
             Window.gameDuration += 10;
 

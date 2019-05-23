@@ -1,4 +1,4 @@
-package Menu;
+package Controlls;
 
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
@@ -12,7 +12,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class Boxen {
+public class Buttons {
 
     public static class MenuBox extends VBox {
         public MenuBox(MenuItem... items) {
@@ -43,36 +43,36 @@ public class Boxen {
                     new Stop(0.9, Color.DARKVIOLET),
                     new Stop(1, Color.TRANSPARENT));
 
-            Rectangle knopf = new Rectangle(320, 30);
-            knopf.setFill(standartVerlauf);
-            knopf.setOpacity(0.3);
+            Rectangle button = new Rectangle(320, 30);
+            button.setFill(standartVerlauf);
+            button.setOpacity(0.3);
 
             Text text = new Text(name);
             text.setFill(Color.LIGHTGRAY);
             text.setFont(Font.font("VCR OSD MONO", 25));
 
             setAlignment(Pos.CENTER);
-            getChildren().addAll(knopf, text);
+            getChildren().addAll(button, text);
 
             setOnMouseEntered(event -> {
-                knopf.setFill(mausAufVerlauf);
-                knopf.setOpacity(0.5);
+                button.setFill(mausAufVerlauf);
+                button.setOpacity(0.5);
                 text.setFill(Color.WHITE);
             });
 
 
             setOnMouseExited(event -> {
-                knopf.setFill(standartVerlauf);
-                knopf.setOpacity(0.3);
+                button.setFill(standartVerlauf);
+                button.setOpacity(0.3);
                 text.setFill(Color.LIGHTGRAY);
             });
 
             setOnMousePressed(event -> {
-                knopf.setFill(mausKlickVerlauf);
+                button.setFill(mausKlickVerlauf);
             });
 
             setOnMouseReleased(event -> {
-                knopf.setFill(standartVerlauf);
+                button.setFill(standartVerlauf);
             });
         }
     }
@@ -99,44 +99,44 @@ public class Boxen {
                     new Stop(0.9, Color.BLACK),
                     new Stop(1, Color.TRANSPARENT));
 
-            Rectangle knopf = new Rectangle(580, 30);
-            knopf.setFill(standartVerlauf);
-            knopf.setOpacity(0.3);
+            Rectangle button = new Rectangle(580, 30);
+            button.setFill(standartVerlauf);
+            button.setOpacity(0.3);
 
             Text text = new Text(name);
             text.setFill(Color.LIGHTGRAY);
             text.setFont(Font.font("VCR OSD MONO", 25));
             setAlignment(Pos.CENTER);
-            getChildren().addAll(knopf, text);
+            getChildren().addAll(button, text);
 
             setOnMouseEntered(event -> {
-                knopf.setFill(mausAufVerlauf);
-                knopf.setOpacity(0.5);
+                button.setFill(mausAufVerlauf);
+                button.setOpacity(0.5);
                 text.setFill(Color.WHITE);
             });
 
             setOnMouseExited(event -> {
-                knopf.setFill(standartVerlauf);
-                knopf.setOpacity(0.3);
+                button.setFill(standartVerlauf);
+                button.setOpacity(0.3);
                 text.setFill(Color.LIGHTGRAY);
             });
         }
     }
 
-    public static class CharakterBox extends HBox {
-        public CharakterBox(Boxen.CharakterItem... items) {
+    public static class SelectionBox extends HBox {
+        public SelectionBox(Buttons.SelectionItem... items) {
 
-            for (Boxen.CharakterItem item : items) {
+            for (Buttons.SelectionItem item : items) {
                 getChildren().addAll(item);
             }
         }
     }
-    public static class CharakterItem extends StackPane {
-        public CharakterItem(String name) {
+    public static class SelectionItem extends StackPane {
+        public SelectionItem(String name) {
             LinearGradient mausAufVerlauf = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE,
                     new Stop(0, Color.TRANSPARENT),
-                    new Stop(0.3, Color.GRAY),
-                    new Stop(0.7, Color.GRAY),
+                    new Stop(0.3, Color.WHITE),
+                    new Stop(0.7, Color.WHITE),
                     new Stop(1, Color.TRANSPARENT));
 
             LinearGradient standartVerlauf = new LinearGradient(0,0,1,0,true,CycleMethod.NO_CYCLE,
@@ -151,41 +151,41 @@ public class Boxen {
                     new Stop(0.7, Color.LIGHTGREEN),
                     new Stop(1, Color.TRANSPARENT));
 
-            Rectangle knopf = new Rectangle(250, 30);
-            knopf.setFill(standartVerlauf);
-            knopf.setOpacity(0.3);
+            Rectangle button = new Rectangle(250, 30);
+            button.setFill(standartVerlauf);
+            button.setOpacity(0.3);
 
             Text text = new Text(name);
             text.setFill(Color.LIGHTGRAY);
             text.setFont(Font.font("VCR OSD MONO",25));
             setAlignment(Pos.CENTER);
-            getChildren().addAll(knopf, text);
+            getChildren().addAll(button, text);
 
             setOnMouseEntered(event -> {
-                knopf.setFill(mausAufVerlauf);
-                knopf.setOpacity(0.5);
+                button.setFill(mausAufVerlauf);
+                button.setOpacity(0.5);
                 text.setFill(Color.WHITE);
             });
 
             setOnMouseEntered(event -> {
-                knopf.setFill(mausAufVerlauf);
-                knopf.setOpacity(0.5);
+                button.setFill(mausAufVerlauf);
+                button.setOpacity(0.5);
                 text.setFill(Color.WHITE);
             });
 
 
             setOnMouseExited(event -> {
-                knopf.setFill(standartVerlauf);
-                knopf.setOpacity(0.3);
+                button.setFill(standartVerlauf);
+                button.setOpacity(0.3);
                 text.setFill(Color.LIGHTGRAY);
             });
 
             setOnMousePressed(event -> {
-                knopf.setFill(mausKlickVerlauf);
+                button.setFill(mausKlickVerlauf);
             });
 
             setOnMouseReleased(event -> {
-                knopf.setFill(mausAufVerlauf);
+                button.setFill(mausAufVerlauf);
             });
         }
     }

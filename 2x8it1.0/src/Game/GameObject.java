@@ -1,7 +1,9 @@
 package Game;
 
-import Menu.Charakter;
-import Menu.Hauptmenu;
+
+import Controlls.ButtonController;
+import Scenes.Hauptmenu;
+import Scenes.Character;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -62,11 +64,11 @@ public class GameObject {
              */
             if (keycode.equals(KeyCode.D) || keycode.equals(KeyCode.RIGHT)) {
                 player.setImage(Player.playerMenschR);
-                if(Charakter.activeChar == 1) {
+                if(Character.activeChar == 1) {
                     player.setImage(Player.playerEngelR);
-                }else if(Charakter.activeChar == 2){
+                }else if(Character.activeChar == 2){
                     player.setImage(Player.playerMenschR);
-                }else if(Charakter.activeChar == 3) {
+                }else if(Character.activeChar == 3) {
                     player.setImage(Player.playerTeufelR);
                 }
 
@@ -101,11 +103,11 @@ public class GameObject {
              */
             if (keycode.equals(KeyCode.A) || keycode.equals(KeyCode.LEFT) && canJump) {
                 player.setImage(Player.playerMenschL);
-                if(Charakter.activeChar == 1) {
+                if(Character.activeChar == 1) {
                     player.setImage(Player.playerEngelL);
-                }else if(Charakter.activeChar == 2){
+                }else if(Character.activeChar == 2){
                     player.setImage(Player.playerMenschL);
-                }else if(Charakter.activeChar == 3) {
+                }else if(Character.activeChar == 3) {
                     player.setImage(Player.playerTeufelL);
                 }
 
@@ -174,7 +176,7 @@ public class GameObject {
            Wenn die Escape Taste gedrückt wird, öffnet sich das Pausemenü
             */
             if (keycode.equals(KeyCode.ESCAPE)) {
-                Hauptmenu.createPause();
+                ButtonController.restartButton();
             }
 
         });

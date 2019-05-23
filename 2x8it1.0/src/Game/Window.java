@@ -1,11 +1,13 @@
 package Game;
 
-import Menu.Hauptmenu;
+import Items.ZeitItem;
 import javafx.scene.Group;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -14,6 +16,8 @@ import javafx.stage.Stage;
 import java.io.FileNotFoundException;
 import java.util.Random;
 
+import static Game.Pistol.bullet7;
+
 /**
  * die Windwow Klasse bezieht sich auf die Erstellung von der Scene.
  * Hierzu gehört die Gruppierung von den Obejekten welche in der Szene angezeigt werden sollen
@@ -21,8 +25,10 @@ import java.util.Random;
 public class Window {
 
     public static Group root;
-    public int score;
     public static int gameDuration = 60;
+    static Random ran = new Random();
+    public static int randomSpawnLocation = ran.nextInt(4 + 1);
+    public static int score = 00001;
     Scene scene;
     Level level1;
     Player player;
@@ -33,29 +39,24 @@ public class Window {
     Label label;
     Label timeLabel;
     Label healthLabel;
-    MouseInput schuss;
     Rectangle healthbar;
+    Game.Pistol pistol;
     ZeitItem zeit;
-
-    static Random  ran = new Random();
-    public static  int randomSpawnLocation = ran.nextInt(4 + 1);
 
     /**
      * Die Szene wird erzeigt
      */
     public void createWindow(Stage stage) throws FileNotFoundException {
         player = new Player();
-        schuss = new MouseInput();
         healthbar = new Rectangle();
 
         healthbar.setY(15);
         healthbar.setX(15);
         healthbar.setHeight(25);
-        healthbar.setFill(Color.rgb(255,0,0,1));
+        healthbar.setFill(Color.rgb(255, 0, 0, 1));
 
         pHBox = player.createPlayerHitBox();
         playerImage = player.createPlayerImage();
-
 
 
         gObj = new GameObject();
@@ -64,6 +65,8 @@ public class Window {
         zeit = new ZeitItem();
 
         level1 = new Level();
+
+        pistol = new Game.Pistol();
 
         level1.createHitbox();
 
@@ -79,7 +82,7 @@ public class Window {
         timeLabel.setTextFill(Color.WHITE);
         timeLabel.setFont(Font.font("VCR OSD MONO", 20));
 
-        healthLabel = new Label( player.health + " %");
+        healthLabel = new Label(player.health + " %");
         healthLabel.setTextFill(Color.WHITE);
         healthLabel.setTranslateX(25);
         healthLabel.setTranslateY(18);
@@ -103,12 +106,11 @@ public class Window {
                 enemy.createEnemyImage(),
                 zeit.createItemImageTime(),
                 playerImage,
-                healthbar,level1.createUI(),
+                healthbar, level1.createUI(),
                 timeLabel,
                 label,
-                healthLabel);
-
-
+                healthLabel, pistol.createBulletImage()
+                );
 
 
         scene = new Scene(root, 1280, 720);
@@ -124,7 +126,7 @@ public class Window {
      * sobald eine Kollision zwsichen dem Spieler und einer anderen Hitbox durch die for-schleife entdeckt wurde, wird die Kollisions abfrage ausgeführt.
      */
     public void collision() {
-        gObj.setGravity(10);
+        gObj.setGravity(5);
         gObj.setVelocity(1);
         gObj.collision = false;
         gObj.moveRight = true;
@@ -145,7 +147,7 @@ public class Window {
 
             healthLabel.setText(player.health + " %");
 
-            label.setText("Score: " + (score-1));
+            label.setText("Score: " + (score - 1));
 
 
         }
@@ -171,7 +173,6 @@ public class Window {
         }
 
 
-
         for (int i = 0; i <= level1.list.size() - 1; i++) {
             gObj.createCollision(pHBox, level1.list.get(i));
         }
@@ -189,7 +190,7 @@ public class Window {
      * der Cursor wird durch ein Crosshair geupdated
      */
     public void createCrosshair() throws FileNotFoundException {
-        scene.setCursor(new ImageCursor(gObj.crosshairImage()));
+        scene.setCursor(new ImageCursor(GameObject.crosshairImage()));
     }
 
     /*
@@ -204,19 +205,19 @@ public class Window {
      die Greifhakenmechanik wird auf den SPieler in der Szenengruppe übertragen
      */
 
-    public void gameOver(){
+    public void gameOver() {
 
     }
 
     public void feuerFrei() {
-        MouseInput.schiessen(scene);
-        if(enemy.createRectangle().get(0).getBoundsInParent().contains(MouseInput.getMousePosX(),MouseInput.getMousePosY())) {
+        if (Game.Pistol.treffer(enemy, root, Game.Pistol.magazin, Game.Pistol.y, Game.Pistol.x)) {
+
             enemy.randomSpawn();
             label.setText("Score: " + score++);
 
         }
 
-        if(enemy.createRectangle().get(0).getBoundsInParent().intersects(pHBox.getBoundsInParent())){
+        if (enemy.createRectangle().get(0).getBoundsInParent().intersects(pHBox.getBoundsInParent())) {
             player.health--;
             healthLabel.setText(player.health + " %");
         }
@@ -229,22 +230,22 @@ public class Window {
 
     }
 
-    public boolean setGameOverTime(){
-        if(gameDuration == 0){
+    public boolean setGameOverTime() {
+        if (gameDuration == 0) {
             System.out.print("gameover");
-           return true;
+            return true;
 
-        }else{
+        } else {
             return false;
         }
     }
 
-    public boolean setGameOverHealth(){
-        if(player.getHealth() == 0){
+    public boolean setGameOverHealth() {
+        if (player.getHealth() == 0) {
             System.out.print("gameover");
             return true;
 
-        }else{
+        } else {
             return false;
         }
     }
@@ -259,9 +260,40 @@ public class Window {
         }
 
     }
-    public void createHealthBar(){
-        healthbar.setWidth(player.health*3);
+
+    public void createHealthBar() {
+        healthbar.setWidth(player.health * 3);
     }
+
+
+    public static int getScore() {
+        return score;
+    }
+
+    public void feuern(){
+        scene.setOnMouseClicked((MouseEvent event) -> {
+            if (Game.Pistol.kugel < 7) {
+                pistol.bulletStatus();
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    Game.Pistol.abschussVorbereiten(playerImage, event, root);
+                }
+            }else{
+                System.out.println("alle alle");
+            }
+            if (event.getButton() == MouseButton.SECONDARY){
+                Game.Pistol.nachladen();
+                Game.Pistol.bulletStatusUi.setImage(bullet7);
+            }
+        });
+
+
+        Game.Pistol.treffer(enemy, root, Game.Pistol.magazin, Game.Pistol.y, Game.Pistol.x);
+        Game.Pistol.wandtreffer(level1.list, root, Game.Pistol.magazin, Game.Pistol.y, Game.Pistol.x);
+        Game.Pistol.abschuss();
+
+    }
+
+
 }
 
 

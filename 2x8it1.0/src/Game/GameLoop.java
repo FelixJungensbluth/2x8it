@@ -1,6 +1,7 @@
 package Game;
 
-import Menu.Hauptmenu;
+import Controlls.ButtonController;
+import Items.ZeitItem;
 import javafx.animation.AnimationTimer;
 import javafx.stage.Stage;
 
@@ -19,7 +20,7 @@ public class GameLoop {
      * start führt nach dem Ausfüheren des Spiels die Methode aus.
      * In dieser wird durch ein AnimationTimer und einem handler eine Schleife erzeugt, welche die Methode 60mal pro Sekunde ausführt.
      */
-    public void run(Stage stage) {
+    public static void run(Stage stage) {
         /** Ein neues Window Objekt wird erzeugt
          */
         Window window = new Window();
@@ -80,13 +81,13 @@ public class GameLoop {
 
                     if (window.setGameOverHealth()) {
                         stop();
-                        Hauptmenu.createGameOver();
-
+                        ButtonController.gameoverButton();
                     }
 
                     if (window.setGameOverTime()) {
                         stop();
-                        Hauptmenu.createGameOver();
+                        Window.gameDuration = 60;
+                        ButtonController.gameoverButton();
 
                     }
 
@@ -98,6 +99,8 @@ public class GameLoop {
                     window.feuerFrei();
                     window.gameOver();
                     window.createHealthBar();
+                    window.feuern();
+
 
                     /**
                      * Der Mauszeiger wird geupdated
